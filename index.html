@@ -1,110 +1,232 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REY</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REY GAMER PRO</title>
+
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      overflow: hidden;
-      background: linear-gradient(135deg, #12001f, #3b0066, #8a2be2);
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    h1 {
-      font-size: 90px;
-      letter-spacing: 8px;
-      text-shadow: 0 0 15px #fff, 0 0 35px #ff00ff, 0 0 60px #a855f7;
-      z-index: 10;
-      animation: brillo 2s infinite alternate;
+    body{
+      width:100%;
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:
+      radial-gradient(circle at top,#4b0082,#12001f 70%);
+      font-family:Arial, Helvetica, sans-serif;
+      position:relative;
     }
 
-    @keyframes brillo {
-      from { transform: scale(1); }
-      to { transform: scale(1.08); }
+    /* TEXTO */
+
+    h1{
+      position:relative;
+      z-index:10;
+      text-align:center;
+      font-size:90px;
+      color:white;
+      letter-spacing:6px;
+      text-transform:uppercase;
+
+      text-shadow:
+      0 0 10px #fff,
+      0 0 20px #c026ff,
+      0 0 40px #c026ff,
+      0 0 80px #7e22ce;
+
+      animation:zoom 2s infinite alternate;
     }
 
-    .balloon {
-      position: absolute;
-      top: -120px;
-      width: 55px;
-      height: 70px;
-      border-radius: 50%;
-      animation: caer linear infinite;
+    @keyframes zoom{
+      from{
+        transform:scale(1);
+      }
+
+      to{
+        transform:scale(1.08);
+      }
+    }
+
+    /* GLOBOS */
+
+    .balloon{
+      position:absolute;
+      top:-120px;
+      width:60px;
+      height:75px;
+      border-radius:50%;
+      animation:fall linear infinite;
       box-shadow: inset -8px -10px rgba(0,0,0,0.2);
     }
 
-    .balloon::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -45px;
-      width: 2px;
-      height: 45px;
-      background: rgba(255,255,255,0.7);
+    .balloon::before{
+      content:"";
+      position:absolute;
+      left:24px;
+      bottom:-10px;
+      border-left:6px solid transparent;
+      border-right:6px solid transparent;
+      border-top:10px solid rgba(255,255,255,0.9);
     }
 
-    .balloon::before {
-      content: "";
-      position: absolute;
-      left: 22px;
-      bottom: -8px;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 10px solid rgba(255,255,255,0.8);
+    .balloon::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:-45px;
+      width:2px;
+      height:45px;
+      background:white;
+      opacity:0.7;
     }
 
-    @keyframes caer {
-      0% {
-        transform: translateY(-120px) rotate(0deg);
-        opacity: 1;
+    @keyframes fall{
+      0%{
+        transform:translateY(-120px) rotate(0deg);
       }
-      100% {
-        transform: translateY(120vh) rotate(360deg);
-        opacity: 0.9;
+
+      100%{
+        transform:translateY(120vh) rotate(360deg);
       }
     }
+
+    /* TRUENOS */
+
+    .lightning{
+      position:absolute;
+      width:6px;
+      height:220px;
+      background:white;
+      opacity:0;
+      z-index:2;
+      filter:blur(1px);
+
+      box-shadow:
+      0 0 20px white,
+      0 0 40px #00ffff,
+      0 0 80px #00ffff;
+    }
+
+    .flash{
+      position:absolute;
+      inset:0;
+      background:white;
+      opacity:0;
+      z-index:1;
+      pointer-events:none;
+    }
+
   </style>
 </head>
+
 <body>
 
-  <h1>REY</h1>
+  <div class="flash"></div>
+
+  <h1>REY GAMER PRO</h1>
 
   <script>
+
+    /* GLOBOS */
+
     const colors = [
-      "#ff0055",
+      "#ff00ff",
+      "#00ffff",
       "#ffcc00",
-      "#00e5ff",
+      "#00ff66",
+      "#ff3366",
       "#9d4edd",
-      "#00ff99",
-      "#ff7b00",
       "#ffffff"
     ];
 
-    function createBalloon() {
+    function createBalloon(){
+
       const balloon = document.createElement("div");
+
       balloon.classList.add("balloon");
 
-      balloon.style.left = Math.random() * 100 + "vw";
-      balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
-      balloon.style.animationDuration = (4 + Math.random() * 5) + "s";
-      balloon.style.opacity = 0.7 + Math.random() * 0.3;
-      balloon.style.transform = `scale(${0.7 + Math.random() * 0.8})`;
+      balloon.style.left =
+      Math.random()*100 + "vw";
+
+      balloon.style.background =
+      colors[Math.floor(Math.random()*colors.length)];
+
+      balloon.style.animationDuration =
+      (4 + Math.random()*5) + "s";
+
+      balloon.style.transform =
+      `scale(${0.7 + Math.random()*0.8})`;
+
+      balloon.style.opacity =
+      0.7 + Math.random()*0.3;
 
       document.body.appendChild(balloon);
 
-      setTimeout(() => {
+      setTimeout(()=>{
         balloon.remove();
-      }, 9000);
+      },9000);
     }
 
-    setInterval(createBalloon, 250);
+    setInterval(createBalloon,200);
+
+    /* TRUENOS */
+
+    const flash = document.querySelector(".flash");
+
+    function createLightning(){
+
+      const lightning =
+      document.createElement("div");
+
+      lightning.classList.add("lightning");
+
+      lightning.style.left =
+      Math.random()*100 + "vw";
+
+      lightning.style.top =
+      Math.random()*40 + "vh";
+
+      lightning.style.transform =
+      `rotate(${Math.random()*30-15}deg)`;
+
+      document.body.appendChild(lightning);
+
+      lightning.animate([
+        { opacity:0 },
+        { opacity:1 },
+        { opacity:0.2 },
+        { opacity:1 },
+        { opacity:0 }
+      ],{
+        duration:400,
+        easing:"ease-out"
+      });
+
+      flash.animate([
+        { opacity:0 },
+        { opacity:0.35 },
+        { opacity:0 }
+      ],{
+        duration:300
+      });
+
+      setTimeout(()=>{
+        lightning.remove();
+      },500);
+
+    }
+
+    setInterval(createLightning,1800);
+
   </script>
 
 </body>
