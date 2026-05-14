@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,82 +21,162 @@
       display:flex;
       justify-content:center;
       align-items:center;
-      background:
-      radial-gradient(circle at top,#4b0082,#12001f 70%);
       font-family:Arial, Helvetica, sans-serif;
       position:relative;
+      perspective:2000px;
+
+      /* IMAGEN DE FONDO */
+      background:
+      linear-gradient(rgba(10,0,20,0.7), rgba(10,0,20,0.9)),
+      url('mujeres.png');
+
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
     }
 
-    /* TEXTO */
+    /* EFECTO OSCURO */
 
-    h1{
-      position:relative;
-      z-index:10;
-      text-align:center;
-      font-size:90px;
-      color:white;
-      letter-spacing:6px;
-      text-transform:uppercase;
-
-      text-shadow:
-      0 0 10px #fff,
-      0 0 20px #c026ff,
-      0 0 40px #c026ff,
-      0 0 80px #7e22ce;
-
-      animation:zoom 2s infinite alternate;
+    body::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+      radial-gradient(circle at center,
+      rgba(180,0,255,0.15),
+      rgba(0,0,0,0.8));
+      z-index:1;
     }
 
-    @keyframes zoom{
+    /* PARTICULAS */
+
+    .particles{
+      position:absolute;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      z-index:2;
+    }
+
+    .particle{
+      position:absolute;
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:#d946ef;
+      box-shadow:
+      0 0 10px #ff00ff,
+      0 0 20px #ff00ff,
+      0 0 40px #ff00ff;
+      animation:float linear infinite;
+    }
+
+    @keyframes float{
       from{
-        transform:scale(1);
+        transform:translateY(100vh) scale(0.5);
+        opacity:0;
+      }
+
+      50%{
+        opacity:1;
       }
 
       to{
-        transform:scale(1.08);
+        transform:translateY(-120vh) scale(1.2);
+        opacity:0;
       }
     }
 
-    /* GLOBOS */
+    /* CONTENEDOR 3D */
 
-    .balloon{
-      position:absolute;
-      top:-120px;
-      width:60px;
-      height:75px;
-      border-radius:50%;
-      animation:fall linear infinite;
-      box-shadow: inset -8px -10px rgba(0,0,0,0.2);
+    .container{
+      position:relative;
+      z-index:10;
+      transform-style:preserve-3d;
+      animation:rotate3d 6s ease-in-out infinite alternate;
     }
 
-    .balloon::before{
-      content:"";
-      position:absolute;
-      left:24px;
-      bottom:-10px;
-      border-left:6px solid transparent;
-      border-right:6px solid transparent;
-      border-top:10px solid rgba(255,255,255,0.9);
+    @keyframes rotate3d{
+      from{
+        transform:rotateY(-8deg) rotateX(3deg);
+      }
+
+      to{
+        transform:rotateY(8deg) rotateX(-3deg);
+      }
     }
 
-    .balloon::after{
-      content:"";
+    /* TEXTO 3D */
+
+    h1{
+      position:relative;
+      text-align:center;
+      font-size:120px;
+      line-height:0.9;
+      text-transform:uppercase;
+      letter-spacing:6px;
+      font-weight:900;
+
+      background:linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f0abfc 30%,
+      #c026d3 60%,
+      #6b21a8 100%);
+
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+
+      filter:drop-shadow(0 0 10px #ff00ff)
+      drop-shadow(0 0 30px #d946ef)
+      drop-shadow(0 0 60px #7e22ce);
+
+      transform:translateZ(100px);
+
+      animation:pulse 2s infinite alternate;
+    }
+
+    /* EFECTO 3D EXTRA */
+
+    h1::before{
+      content:"REY GAMER PRO";
       position:absolute;
+      inset:0;
+      color:rgba(255,255,255,0.08);
+      transform:translateZ(-50px) translateX(12px) translateY(12px);
+      filter:blur(8px);
+      z-index:-1;
+    }
+
+    h1::after{
+      content:"👑";
+      position:absolute;
+      top:-90px;
       left:50%;
-      bottom:-45px;
-      width:2px;
-      height:45px;
-      background:white;
-      opacity:0.7;
+      transform:translateX(-50%);
+      font-size:90px;
+      filter:drop-shadow(0 0 15px #ff00ff)
+      drop-shadow(0 0 40px #ff00ff);
+      animation:crownFloat 2s ease-in-out infinite;
     }
 
-    @keyframes fall{
+    @keyframes pulse{
+      from{
+        transform:translateZ(100px) scale(1);
+      }
+
+      to{
+        transform:translateZ(150px) scale(1.05);
+      }
+    }
+
+    @keyframes crownFloat{
       0%{
-        transform:translateY(-120px) rotate(0deg);
+        transform:translateX(-50%) translateY(0px);
       }
 
       100%{
-        transform:translateY(120vh) rotate(360deg);
+        transform:translateX(-50%) translateY(-10px);
       }
     }
 
@@ -103,17 +184,18 @@
 
     .lightning{
       position:absolute;
-      width:6px;
-      height:220px;
+      width:8px;
+      height:260px;
       background:white;
       opacity:0;
-      z-index:2;
+      z-index:3;
       filter:blur(1px);
 
       box-shadow:
       0 0 20px white,
-      0 0 40px #00ffff,
-      0 0 80px #00ffff;
+      0 0 40px #ff00ff,
+      0 0 80px #ff00ff,
+      0 0 140px #c026d3;
     }
 
     .flash{
@@ -121,8 +203,22 @@
       inset:0;
       background:white;
       opacity:0;
-      z-index:1;
+      z-index:2;
       pointer-events:none;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px){
+
+      h1{
+        font-size:70px;
+      }
+
+      h1::after{
+        font-size:60px;
+        top:-70px;
+      }
     }
 
   </style>
@@ -132,68 +228,66 @@
 
   <div class="flash"></div>
 
-  <h1>REY GAMER PRO</h1>
+  <div class="particles"></div>
+
+  <div class="container">
+    <h1>
+      REY<br>
+      GAMER PRO
+    </h1>
+  </div>
 
   <script>
 
-    /* GLOBOS */
+    /* PARTICULAS */
 
-    const colors = [
-      "#ff00ff",
-      "#00ffff",
-      "#ffcc00",
-      "#00ff66",
-      "#ff3366",
-      "#9d4edd",
-      "#ffffff"
-    ];
+    const particlesContainer =
+    document.querySelector('.particles');
 
-    function createBalloon(){
+    function createParticle(){
 
-      const balloon = document.createElement("div");
+      const particle =
+      document.createElement('div');
 
-      balloon.classList.add("balloon");
+      particle.classList.add('particle');
 
-      balloon.style.left =
-      Math.random()*100 + "vw";
+      particle.style.left =
+      Math.random()*100 + 'vw';
 
-      balloon.style.background =
-      colors[Math.floor(Math.random()*colors.length)];
+      particle.style.animationDuration =
+      (3 + Math.random()*6) + 's';
 
-      balloon.style.animationDuration =
-      (4 + Math.random()*5) + "s";
+      particle.style.opacity =
+      Math.random();
 
-      balloon.style.transform =
-      `scale(${0.7 + Math.random()*0.8})`;
+      particle.style.transform =
+      `scale(${Math.random()*1.5})`;
 
-      balloon.style.opacity =
-      0.7 + Math.random()*0.3;
-
-      document.body.appendChild(balloon);
+      particlesContainer.appendChild(particle);
 
       setTimeout(()=>{
-        balloon.remove();
+        particle.remove();
       },9000);
     }
 
-    setInterval(createBalloon,200);
+    setInterval(createParticle,80);
 
     /* TRUENOS */
 
-    const flash = document.querySelector(".flash");
+    const flash = document.querySelector('.flash');
 
     function createLightning(){
 
       const lightning =
-      document.createElement("div");
+      document.createElement('div');
 
-      lightning.classList.add("lightning");
+      lightning.classList.add('lightning');
 
       lightning.style.left =
-      Math.random()*100 + "vw";
+      Math.random()*100 + 'vw';
 
       lightning.style.top =
-      Math.random()*40 + "vh";
+      Math.random()*40 + 'vh';
 
       lightning.style.transform =
       `rotate(${Math.random()*30-15}deg)`;
@@ -208,12 +302,12 @@
         { opacity:0 }
       ],{
         duration:400,
-        easing:"ease-out"
+        easing:'ease-out'
       });
 
       flash.animate([
         { opacity:0 },
-        { opacity:0.35 },
+        { opacity:0.25 },
         { opacity:0 }
       ],{
         duration:300
@@ -222,7 +316,6 @@
       setTimeout(()=>{
         lightning.remove();
       },500);
-
     }
 
     setInterval(createLightning,1800);
@@ -231,3 +324,6 @@
 
 </body>
 </html>
+```
+
+Usa la imagen `mujeres.png` en la misma carpeta del `index.html` para que cargue automáticamente el fondo en 3D.
